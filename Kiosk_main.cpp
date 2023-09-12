@@ -1,6 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
-//여기에 소스코드를 작성하고 해석하고 수정하고 추가하고... 암튼 할거임!
 
 void sandwich_price(int n);
 void coffee_price(int n);
