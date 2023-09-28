@@ -105,11 +105,11 @@ public:
 	}
 };
 
-price pr;
+price pr; //price 클래스를 pr로 선언
 
 void coffee_price(int n) //coffee_price함수 작성
 {
-	int m;
+	int m; //내가 낼 돈을 저장할 m 변수 선언
 	int ame = 400, latte = 700, moca = 800; //정수형 변수 ame = 400, latte = 700, moca = 800로 선언
 
 	if (n == 0) //if문 n = 0 일때
@@ -121,7 +121,7 @@ void coffee_price(int n) //coffee_price함수 작성
 	{
 		cout << "금액을 투자하세요"; //금액을 투자하세요 출력
 		cin >> m;
-		pr.my_mony(m); //change 클래스의 Calculator_change 함수 호출
+		pr.my_mony(m); //price 클래스의 my_mony 함수 호출
 
 		switch (n) //switch문
 		{
@@ -144,19 +144,19 @@ void coffee_price(int n) //coffee_price함수 작성
 
 void sandwich_price(int n)//샌드위치의 종류와 지불한 금액을 입력받아 계한하는 함수
 {
-	int m;
+	int m; //내가 낼 돈을 저장할 m 변수 선언
 	int sand = 700, gril = 800, ras = 800; //샌드위치의 가격
 
 	if (n == 0) //주문 종류n이 0이면 종료
 	{
-		cout << "종료" << endl;
+		cout << "종료" << endl; //종료 출력
 	}
 
 	while (n != 0) //주문 종류n이 0이 아니면
 	{
 		cout << "금액을 투자하세요";
 		cin >> m; //입금받을 금액을 받음
-		pr.my_mony(m);
+		pr.my_mony(m); //price 클래스의 my_mony 함수 호출
 		switch (n)
 		{
 		case 1:
