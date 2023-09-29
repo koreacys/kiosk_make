@@ -92,16 +92,70 @@ public: //접근 제어자 public
 
 change ch; //change 클래스를 ch로 선언
 
-class price { //계산 클래스
+class price2 { //계산 클래스
 public:
 	int mony, g;  //정수방 mony와 g 생성
 	void my_mony(int m) { //my_mony 함수 생성
 		mony = m; //mony에 m 저장
 	}
 
-	void price_menu(int p) { //price_menu 함수 생성
+	void price_menu2(int p) { //price_menu 함수 생성
 		g = mony - p;  //계산 결과를 g에 저장
 		ch.Calculator_change(g); //change 클래스의 Calculator_change 함수 호출
+	}
+};
+
+price2 p2;
+
+class price { //계산 클래스
+public:
+	void price_menu(int p) { //price_menu 함수 생성
+		int payway, cash; // int YN, cash값은 손 봐야함
+
+		cout << "============[결제선택]============" << endl;
+		cout << "1. 현금" << endl;
+		cout << "2. 카드" << endl;
+		cout << "3. 삼성페이/애플페이" << endl;
+		cout << "0. 결제 취소" << endl;
+		cout << "==================================\n";
+		cout << "결제방법을 선택해주세요: ";
+		cin >> payway;
+
+		while (1)
+		{
+			if (payway == 1)
+			{
+				cout << "현금 결제를 선택하셨습니다.\n";
+				cout << "금액은 " << p << " 원 입니다.\n"; //임의의 a 값으로 일단 대체
+				cout << "금액을 투입해주세요.";
+				cin >> cash;
+				p2.my_mony(cash);
+				p2.price_menu2(p);
+				break;
+			}
+			else if (payway == 2)
+			{
+				cout << "카드 결제를 선택하셨습니다.\n";
+				cout << "금액은 " << p << " 원 입니다.\n";
+				cout << "카드를 투입해주세요.\n";
+				cout << "결제가 완료 되었습니다. \n";
+				break;
+			}
+			else if (payway == 3)
+			{
+				cout << "삼성페이/애플페이를 선택하셨습니다.\n";
+				cout << "금액은 " << p << " 원 입니다.\n";
+				cout << "핸드폰을 리더기에 대주세요.\n";
+				cout << "결제가 완료 되었습니다. \n";
+				break;
+			}
+			else if (payway == 0)
+			{
+				cout << "결제를 취소하셨습니다.\n";
+				cout << "결제를 취소합니다."; // 결제를 취소하시겠습니까? YN의 값을 받아 1일 경우 결제를 취소하는 메시지 출력, 2일 경우 결제를 계속하도록 원래 화면으로 돌아가게 하기.
+				break;
+			}
+		}
 	}
 };
 
@@ -109,7 +163,6 @@ price pr; //price 클래스를 pr로 선언
 
 void coffee_price(int n) //coffee_price함수 작성
 {
-	int m; //내가 낼 돈을 저장할 m 변수 선언
 	int ame = 400, latte = 700, moca = 800; //정수형 변수 ame = 400, latte = 700, moca = 800로 선언
 
 	if (n == 0) //if문 n = 0 일때
@@ -119,10 +172,6 @@ void coffee_price(int n) //coffee_price함수 작성
 
 	while (n != 0) //n = 0 이 아닐 때
 	{
-		cout << "금액을 투자하세요"; //금액을 투자하세요 출력
-		cin >> m;
-		pr.my_mony(m); //price 클래스의 my_mony 함수 호출
-
 		switch (n) //switch문
 		{
 		case 1: //1이 눌렸을 때
@@ -144,7 +193,6 @@ void coffee_price(int n) //coffee_price함수 작성
 
 void sandwich_price(int n)//샌드위치의 종류와 지불한 금액을 입력받아 계한하는 함수
 {
-	int m; //내가 낼 돈을 저장할 m 변수 선언
 	int sand = 700, gril = 800, ras = 800; //샌드위치의 가격
 
 	if (n == 0) //주문 종류n이 0이면 종료
@@ -154,9 +202,6 @@ void sandwich_price(int n)//샌드위치의 종류와 지불한 금액을 입력받아 계한하는 함
 
 	while (n != 0) //주문 종류n이 0이 아니면
 	{
-		cout << "금액을 투자하세요";
-		cin >> m; //입금받을 금액을 받음
-		pr.my_mony(m); //price 클래스의 my_mony 함수 호출
 		switch (n)
 		{
 		case 1:
