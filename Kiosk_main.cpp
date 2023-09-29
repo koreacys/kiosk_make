@@ -105,12 +105,12 @@ public:
 	}
 };
 
-price2 p2;
+price2 p2; //클래스 price2를 p2이름으로 정의
 
 class price { //계산 클래스
 public:
 	void price_menu(int p) { //price_menu 함수 생성
-		int payway, cash; // int YN, cash값은 손 봐야함
+		int payway, cash; // 결제 방법을 선택하여 저장할 정수방 payway와 현금 결제시 금액을 저장할 cash 생성
 
 		cout << "============[결제선택]============" << endl;
 		cout << "1. 현금" << endl;
@@ -119,40 +119,39 @@ public:
 		cout << "0. 결제 취소" << endl;
 		cout << "==================================\n";
 		cout << "결제방법을 선택해주세요: ";
-		cin >> payway;
+		cin >> payway; //결제 방법을 payway에 저장
 
-		while (1)
+		while (1) //반복문
 		{
-			if (payway == 1)
+			if (payway == 1) //현금 결제시
 			{
 				cout << "현금 결제를 선택하셨습니다.\n";
-				cout << "금액은 " << p << " 원 입니다.\n"; //임의의 a 값으로 일단 대체
+				cout << "금액은 " << p << " 원 입니다.\n"; //p에 주문한 음식의 금액을 삽입
 				cout << "금액을 투입해주세요.";
-				cin >> cash;
-				p2.my_mony(cash);
-				p2.price_menu2(p);
+				cin >> cash; //금액을 cash에 삽입
+				p2.my_mony(cash); //p2클래스의 my_mony함수에 cash를 삽입
+				p2.price_menu2(p); ////p2클래스의 price_menu2함수에 음식의 금액을 삽입
 				break;
 			}
-			else if (payway == 2)
+			else if (payway == 2) //카드 결제시
 			{
 				cout << "카드 결제를 선택하셨습니다.\n";
-				cout << "금액은 " << p << " 원 입니다.\n";
+				cout << "금액은 " << p << " 원 입니다.\n"; //p에 주문한 음식의 금액을 삽입
 				cout << "카드를 투입해주세요.\n";
 				cout << "결제가 완료 되었습니다. \n";
 				break;
 			}
-			else if (payway == 3)
+			else if (payway == 3) //페이 결제시
 			{
 				cout << "삼성페이/애플페이를 선택하셨습니다.\n";
-				cout << "금액은 " << p << " 원 입니다.\n";
+				cout << "금액은 " << p << " 원 입니다.\n"; //p에 주문한 음식의 금액을 삽입
 				cout << "핸드폰을 리더기에 대주세요.\n";
 				cout << "결제가 완료 되었습니다. \n";
 				break;
 			}
-			else if (payway == 0)
+			else if (payway == 0) //종료 결제시
 			{
 				cout << "결제를 취소하셨습니다.\n";
-				cout << "결제를 취소합니다."; // 결제를 취소하시겠습니까? YN의 값을 받아 1일 경우 결제를 취소하는 메시지 출력, 2일 경우 결제를 계속하도록 원래 화면으로 돌아가게 하기.
 				break;
 			}
 		}
