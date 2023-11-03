@@ -190,9 +190,7 @@ public: //접근 제어자 public
     }
 };
 
-change ch; //change 클래스를 ch로 선언
-
-class price2 { //계산 클래스
+class price2 : public change { //계산 클래스 , class change클래스 상속
 public:
     int mony, g;  //정수방 mony와 g 생성
     void my_mony(int m) { //my_mony 함수 생성
@@ -201,16 +199,16 @@ public:
 
     void price_menu2(int p) { //price_menu 함수 생성
         g = mony - p;  //계산 결과를 g에 저장
-        ch.Calculator_change(g); //change 클래스의 Calculator_change 함수 호출
+        Calculator_change(g); //change 클래스의 Calculator_change 함수 호출
     }
 };
 
 price2 p2; //클래스 price2를 p2이름으로 정의
 
-class price { //계산 클래스
+class Price { //계산 클래스
 public:
     void price_menu(int p) { //price_menu 함수 생성
-        int payway, cash; // 결제 방법을 선택하여 저장할 정수방 payway와 현금 결제시 금액을 저장할 cash 생성
+        int payway, cash; // 결제 방법을 선택하여 저장할 정수방 pzayway와 현금 결제시 금액을 저장할 cash 생성
 
         cout << "============[결제선택]============" << endl;
         cout << "1. 현금" << endl;
@@ -263,14 +261,13 @@ public:
     }
 };
 
-price pr; //price 클래스를 pr로 선언
-
+Price pr; //price 클래스를 pr로 선언
 
 class Shopping_basket {
 public:
     int c;
     // 선택된 메뉴와 총 가격을 저장할 변수 추가
-    vector<string> selectedMenu; // 선택된 메뉴 목록을 저장하는 벡터
+    vector<string> selectedMenu = {}; // 선택된 메뉴 목록을 저장하는 벡터
     int totalPrice = 0; // 총 가격
 
     void printSelectedMenu(int p) { // 선택된 메뉴 출력 함수
@@ -286,7 +283,10 @@ public:
 
         switch (c) {
         case 1:
+            selectedMenu.clear(); // 벡터의 모든 원소 삭제
+            totalPrice = 0; // 총 가격을 0으로 초기화
             pr.price_menu(totalPrice);
+            break;
         case 2:
             hb.MenuOrder();
             break;
@@ -313,6 +313,7 @@ void hamburger_price(int n) //hamburger_price함수 작성
         case 1: //1이 눌렸을 때
             if (Nbulgogi > 0) { //불고기 버거가 남아있으면
                 Nbulgogi--; //불고기 버거의 수를 -1 감소
+                sum1 += bulgogi; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("불고기버거(3500)");
                 sb.printSelectedMenu(bulgogi); //불고기버거의 값을 price_menu에 저장
             }
@@ -323,6 +324,7 @@ void hamburger_price(int n) //hamburger_price함수 작성
         case 2: //2가 눌렸을 때
             if (Nshrimp > 0) { //새우 버거가 남아있으면
                 Nshrimp--; //새우 버거의 수를 -1 감소
+                sum1 += shrimp; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("새우버거(3000)");
                 sb.printSelectedMenu(shrimp); //새우버거의 값을 price_menu에 저장
             }
@@ -333,6 +335,7 @@ void hamburger_price(int n) //hamburger_price함수 작성
         case 3: //3이 눌렸을 때
             if (Nchicken > 0) { //치킨 버거가 남아있으면
                 Nchicken--; //치킨 버거의 수를 -1 감소
+                sum1 += chicken; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("치킨버거(4000)");
                 sb.printSelectedMenu(chicken); //치킨버거의 값을 price_menu에 저장
             }
@@ -343,6 +346,7 @@ void hamburger_price(int n) //hamburger_price함수 작성
         case 4: //3이 눌렸을 때
             if (Ncheese > 0) { //치즈 버거가 남아있으면
                 Ncheese--; //치즈 버거의 수를 -1 감소
+                sum1 += cheese; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("치즈버거(3700)");
                 sb.printSelectedMenu(cheese); //치즈버거의 값을 price_menu에 저장
             }
@@ -353,6 +357,7 @@ void hamburger_price(int n) //hamburger_price함수 작성
         case 5: //3이 눌렸을 때
             if (Negg > 0) { //에그 버거가 남아있으면
                 Negg--; //에그 버거의 수를 -1 감소
+                sum1 += egg; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("에그버거(3200)");
                 sb.printSelectedMenu(egg); //에그버거의 값을 price_menu에 저장
             }
@@ -366,6 +371,7 @@ void hamburger_price(int n) //hamburger_price함수 작성
 
         break; //while문 나가기
     }
+
 }
 
 //--------------------------[세트]---------------------------------
@@ -390,6 +396,7 @@ void hamset_price(int n) // hamset_price함수 작성
             if (Nbulgogi > 0) { //불고기 버거가 남아있으면
                 Nbulgogi--; //불고기 버거의 수를 -1 감소
                 total += bulgogi; //불고기버거의 값을 price_menu에 저장
+                sum1 += bulgogi; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("불고기버거(3500)");
             }
             else { //불고기 버거가 품절이면
@@ -400,6 +407,7 @@ void hamset_price(int n) // hamset_price함수 작성
             if (Nshrimp > 0) { //새우 버거가 남아있으면
                 Nshrimp--; //새우 버거의 수를 -1 감소
                 total += shrimp; //새우버거의 값을 price_menu에 저장
+                sum1 += shrimp; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("새우버거(3000)");
             }
             else { //새우 버거가 품절이면
@@ -410,6 +418,7 @@ void hamset_price(int n) // hamset_price함수 작성
             if (Nchicken > 0) { //치킨 버거가 남아있으면
                 Nchicken--; //치킨 버거의 수를 -1 감소
                 total += chicken; //치킨버거의 값을 price_menu에 저장
+                sum1 += chicken; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("치킨버거(4000)");
             }
             else { //치킨 버거가 품절이면
@@ -420,6 +429,7 @@ void hamset_price(int n) // hamset_price함수 작성
             if (Ncheese > 0) { //치즈 버거가 남아있으면
                 Ncheese--; //치즈 버거의 수를 -1 감소
                 total += cheese; //치즈버거의 값을 price_menu에 저장
+                sum1 += cheese; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("치즈버거(3700)");
             }
             else { //치즈 버거가 품절이면
@@ -430,6 +440,7 @@ void hamset_price(int n) // hamset_price함수 작성
             if (Negg > 0) { //에그 버거가 남아있으면
                 Negg--; //에그 버거의 수를 -1 감소
                 total += egg; //에그버거의 값을 price_menu에 저장
+                sum1 += egg; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("에그버거(3200)");
             }
             else { //에그 버거가 품절이면
@@ -461,6 +472,7 @@ void set_drink(int n) { //set_drink함수 작성
             if (Ncola > 0) { //콜라가 남아있으면
                 Ncola--; //콜라의 수를 -1 감소
                 total += cola; //콜라의 값을 price_menu에 저장
+                sum3 += cola; // 음료가 팔릴 때, 해당 가격을 sum3에 더함
                 sb.selectedMenu.push_back("콜라(+0)");
             }
             else { //콜라거가 품절이면
@@ -471,6 +483,7 @@ void set_drink(int n) { //set_drink함수 작성
             if (Nzero_cola > 0) { //제로콜라가 남아있으면
                 Nzero_cola--; //제로콜라의 수를 -1 감소
                 total += zero_cola; //제로콜라의 값을 price_menu에 저장
+                sum3 += zero_cola; // 음료가 팔릴 때, 해당 가격을 sum3에 더함
                 sb.selectedMenu.push_back("제로콜라(+0)");
             }
             else { //제로콜라가 품절이면
@@ -481,6 +494,7 @@ void set_drink(int n) { //set_drink함수 작성
             if (Nsoda > 0) { //사이다가 남아있으면
                 Nsoda--; //사이다의 수를 -1 감소
                 total += soda; //사이다의 값을 price_menu에 저장
+                sum3 += soda; // 음료가 팔릴 때, 해당 가격을 sum3에 더함
                 sb.selectedMenu.push_back("사이다(+0)");
             }
             else { //사이다가 품절이면
@@ -491,6 +505,7 @@ void set_drink(int n) { //set_drink함수 작성
             if (Norange > 0) { //오렌지주스가 남아있으면
                 Norange--; //오렌지주스의 수를 -1 감소
                 total += orange; //오렌지 주스의 값을 price_menu에 저장
+                sum3 += orange; // 음료가 팔릴 때, 해당 가격을 sum3에 더함
                 sb.selectedMenu.push_back("오렌지주스(+500)");
             }
             else { //오렌지주스가 품절이면
@@ -501,6 +516,7 @@ void set_drink(int n) { //set_drink함수 작성
             if (Nwater > 0) { //물이 남아있으면
                 Nwater--; //물의 수를 -1 감소
                 total += water; //물의 값을 price_menu에 저장
+                sum3 += water; // 음료가 팔릴 때, 해당 가격을 sum3에 더함
                 sb.selectedMenu.push_back("물(+0)");
             }
             else { //물이 품절이면
@@ -532,6 +548,7 @@ void set_side(int n) { //set_side함수 작성
             if (Npotato > 0) { //감자튀김가 남아있으면
                 Npotato--; //감자튀김의 수를 -1 감소
                 total += potato; //감자튀김 값을 price_menu에 저장
+                sum2 += potato; // 사이드메뉴가 팔릴 때, 해당 가격을 sum2에 더함
                 sb.selectedMenu.push_back("감자튀김(+0)");
                 sb.printSelectedMenu(total);
             }
@@ -543,6 +560,7 @@ void set_side(int n) { //set_side함수 작성
             if (Nnuggets > 0) { //치킨너겟이 남아있으면
                 Nnuggets--; //치킨너겟의 수를 -1 감소
                 total += nuggets; //치킨너겟의 값을 price_menu에 저장
+                sum2 += nuggets; // 사이드메뉴가 팔릴 때, 해당 가격을 sum2에 더함
                 sb.selectedMenu.push_back("치킨너겟(+500)");
                 sb.printSelectedMenu(total);
             }
@@ -554,6 +572,7 @@ void set_side(int n) { //set_side함수 작성
             if (Ncstick > 0) { //치즈스틱이 남아있으면
                 Ncstick--; //치즈스틱의 수를 -1 감소
                 total += cstick; //치즈스틱의 값을 price_menu에 저장
+                sum2 += cstick; // 사이드메뉴가 팔릴 때, 해당 가격을 sum2에 더함
                 sb.selectedMenu.push_back("치즈스틱(+500)");
                 sb.printSelectedMenu(total);
             }
@@ -565,6 +584,7 @@ void set_side(int n) { //set_side함수 작성
             if (Ncpotatoes > 0) { //치즈감자이 남아있으면
                 Ncpotatoes--; //치즈감자의 수를 -1 감소
                 total += cpotatoes; //치즈감자의 값을 price_menu에 저장
+                sum2 += cpotatoes; // 사이드메뉴가 팔릴 때, 해당 가격을 sum2에 더함
                 sb.selectedMenu.push_back("치즈감자(+1000)");
                 sb.printSelectedMenu(total);
             }
@@ -599,6 +619,7 @@ void side_price(int n) //side_price함수 작성
         case 1:
             if (Npotato > 0) { //감자튀김이 남아있으면
                 Npotato--; //감자튀김의 수를 -1 감소
+                sum2 += potato; // 사이드메뉴가 팔릴 때, 해당 가격을 sum2에 더함
                 sb.selectedMenu.push_back("감자튀김(1200)");
                 sb.printSelectedMenu(potato); //감자튀김 값을 price_menu에 저장
             }
@@ -609,6 +630,7 @@ void side_price(int n) //side_price함수 작성
         case 2:
             if (Nnuggets > 0) { //치킨너겟이 남아있으면
                 Nnuggets--; //치킨너겟의 수를 -1 감소
+                sum2 += nuggets; // 사이드메뉴가 팔릴 때, 해당 가격을 sum2에 더함
                 sb.selectedMenu.push_back("치킨너겟(1500)");
                 sb.printSelectedMenu(nuggets); //치킨너겟의 값을 price_menu에 저장
             }
@@ -619,6 +641,7 @@ void side_price(int n) //side_price함수 작성
         case 3:
             if (Ncstick > 0) { //치즈스틱이 남아있으면
                 Ncstick--; //치즈스틱의 수를 -1 감소
+                sum2 += cstick; // 사이드메뉴가 팔릴 때, 해당 가격을 sum2에 더함
                 sb.selectedMenu.push_back("치즈스틱(1000)");
                 sb.printSelectedMenu(cstick); //치즈스틱의 값을 price_menu에 저장
             }
@@ -629,6 +652,7 @@ void side_price(int n) //side_price함수 작성
         case 4:
             if (Ncpotatoes > 0) { //치즈감자가 남아있으면
                 Ncpotatoes--; //치즈감자의 수를 -1 감소
+                sum2 += cpotatoes; // 사이드메뉴가 팔릴 때, 해당 가격을 sum2에 더함
                 sb.selectedMenu.push_back("치즈감자(2000)");
                 sb.printSelectedMenu(cpotatoes); //치즈감자의 값을 price_menu에 저장
             }
@@ -661,6 +685,7 @@ void drink_price(int n) //drin_price함수 작성
         case 1: //1이 눌렸을 때
             if (Ncola > 0) { //콜라가 남아있으면
                 Ncola--; //콜라의 수를 -1 감소
+                sum3 += cola; // 음료가 팔릴 때, 해당 가격을 sum3에 더함
                 sb.selectedMenu.push_back("콜라(1500)");
                 sb.printSelectedMenu(cola); //콜라의 값을 price_menu에 저장
             }
@@ -671,6 +696,7 @@ void drink_price(int n) //drin_price함수 작성
         case 2: //2가 눌렸을 때
             if (Nzero_cola > 0) { //제로콜라가 남아있으면
                 Nzero_cola--; //제로콜라의 수를 -1 감소
+                sum3 += zero_cola; // 음료가 팔릴 때, 해당 가격을 sum3에 더함
                 sb.selectedMenu.push_back("제로콜라(1500)");
                 sb.printSelectedMenu(zero_cola); //제로콜라의 값을 price_menu에 저장
             }
@@ -681,6 +707,7 @@ void drink_price(int n) //drin_price함수 작성
         case 3: //3이 눌렸을 때
             if (Nsoda > 0) { //사이다가 남아있으면
                 Nsoda--; //사이다의 수를 -1 감소
+                sum3 += soda; // 음료가 팔릴 때, 해당 가격을 sum3에 더함
                 sb.selectedMenu.push_back("사이다(1500)");
                 sb.printSelectedMenu(soda); //사이다의 값을 price_menu에 저장
             }
@@ -691,6 +718,7 @@ void drink_price(int n) //drin_price함수 작성
         case 4: //4가 눌렸을 때
             if (Norange > 0) { //오렌지주스가 남아있으면
                 Norange--; //오렌지주스의 수를 -1 감소
+                sum3 += orange; // 음료가 팔릴 때, 해당 가격을 sum3에 더함
                 sb.selectedMenu.push_back("오렌지주스(1200)");
                 sb.printSelectedMenu(orange); //오렌지 주스의 값을 price_menu에 저장
             }
@@ -701,6 +729,7 @@ void drink_price(int n) //drin_price함수 작성
         case 5: //5가 눌렸을 때
             if (Nwater > 0) { //물이 남아있으면
                 Nwater--; //물의 수를 -1 감소
+                sum3 += water; // 음료가 팔릴 때, 해당 가격을 sum3에 더함
                 sb.selectedMenu.push_back("물(1000)");
                 sb.printSelectedMenu(water); //물의 값을 price_menu에 저장
             }
@@ -732,73 +761,95 @@ void ShowRemain() { // 재고 관리
 
     cout << "============[재고 관리]============" << endl; // 문자 출력
     cout << "각 메뉴의 남은 수량은 다음과 같습니다." << endl; // 문자 출력
-    cout << "1) 불고기버거: " << Nbulgogi << endl; // 불고기버거의 남은 수량 출력
-    cout << "2) 새우버거: " << Nshrimp << endl; // 새우버거의 남은 수량 출력
-    cout << "3) 치킨버거: " << Nchicken << endl; // 치킨버거의 남은 수량 출력
-    cout << "4) 치즈버거: " << Ncheese << endl; // 치즈버거의 남은 수량 출력
-    cout << "5) 에그버거: " << Negg << endl; // 에그버거의 남은 수량 출력
-    cout << "6) 감자튀김: " << Npotato << endl; // 감자튀김의 남은 수량 출력
-    cout << "7) 치킨너겟: " << Nnuggets << endl; // 치킨너겟의 남은 수량 출력
-    cout << "8) 치즈스틱: " << Ncstick << endl; // 치즈스틱의 남은 수량 출력
-    cout << "9) 치즈감자: " << Ncpotatoes << endl; // 치즈감자의 남은 수량 출력
+    cout << "01) 불고기버거: " << Nbulgogi << endl; // 불고기버거의 남은 수량 출력
+    cout << "02) 새우버거: " << Nshrimp << endl; // 새우버거의 남은 수량 출력
+    cout << "03) 치킨버거: " << Nchicken << endl; // 치킨버거의 남은 수량 출력
+    cout << "04) 치즈버거: " << Ncheese << endl; // 치즈버거의 남은 수량 출력
+    cout << "05) 에그버거: " << Negg << endl; // 에그버거의 남은 수량 출력
+    cout << "06) 감자튀김: " << Npotato << endl; // 감자튀김의 남은 수량 출력
+    cout << "07) 치킨너겟: " << Nnuggets << endl; // 치킨너겟의 남은 수량 출력
+    cout << "08) 치즈스틱: " << Ncstick << endl; // 치즈스틱의 남은 수량 출력
+    cout << "09) 치즈감자: " << Ncpotatoes << endl; // 치즈감자의 남은 수량 출력
     cout << "10) 콜라: " << Ncola << endl; // 콜라의 남은 수량 출력
     cout << "11) 제로콜라: " << Nzero_cola << endl; // 제로콜라의 남은 수량 출력
     cout << "12) 사이다: " << Nsoda << endl; // 사이다의 남은 수량 출력
     cout << "13) 오렌지주스: " << Norange << endl; // 오렌지주스의 남은 수량 출력
     cout << "14) 물: " << Nwater << endl; // 물의 남은 수량 출력
+    cout << "00) 종료" << endl;
     cout << "==================================" << endl; // 문자 출력
 
     while (1) { // 무한반복
-        cout << "재고를 추가하거나 줄일 메뉴 번호를 입력하세요. (0은 종료)" << endl; // 문자 출력
+        cout << "재고를 추가하거나 줄일 메뉴 번호를 입력하세요." << endl; // 문자 출력
+        cout << "===================================" << endl;
+        cout << "번호 입력 : ";
         cin >> choice; // choice에 입력한 문자 넣기
         if (choice == 0) { // choice가 0이면
+            cout << "===================================" << endl;
             cout << "관리자 모드를 종료합니다." << endl; // 문자 출력
-            hb.run(); //첫 시작 화면 부르기
+            cout << "===================================" << endl;
+            manager();
             break; // while문 나가기
         }
         else if (choice < 1 || choice > 14) { // choice가 1보다 작거나 14보다 크면
+            cout << "===================================" << endl;
             cout << "잘못된 번호입니다. 다시 입력하세요." << endl; // 문자 출력
+            cout << "===================================" << endl;
             continue; // while문의 처음으로 돌아가기
         }
         else { // choice가 1부터 14 사이면
-            cout << "재고를 추가하려면 양수, 줄이려면 음수를 입력하세요." << endl; // 문자 출력
+            cout << "===================================" << endl;
+            cout << "재고를 추가하려면 양수, 줄이려면 음수를 입력하세요.(0을 누르면 종료 됩니다.)" << endl; // 문자 출력
+            cout << "===================================" << endl;
+            cout << "재고 입력 : ";
             cin >> amount; // amount에 입력한 문자 넣기
             switch (choice) { // switch문에 choice 넣기
             case 1: // choice가 1이면
                 Nbulgogi += amount; // 불고기버거의 남은 수량에 amount 더하기
+                ShowRemain();
                 break; // switch문 나가기
             case 2: // choice가 2이면
                 Nshrimp += amount; // 새우버거의 남은 수량에 amount 더하기
+                ShowRemain();
                 break; // switch문 나가기
             case 3: // choice가 3이면
                 Nchicken += amount; // 치킨버거의 남은 수량에 amount 더하기
+                ShowRemain();
                 break; // switch문 나가기
             case 4: // choice가 4이면
                 Ncheese += amount; // 치즈버거의 남은 수량에 amount 더하기
+                ShowRemain();
                 break; // switch문 나가기
             case 5: // choice가 5이면
                 Negg += amount; // 에그버거의 남은 수량에 amount 더하기
                 break; // switch문 나가기
             case 6: // choice가 6이면
                 Npotato += amount; // 감자튀김의 남은 수량에 amount 더하기
+                ShowRemain();
                 break; // switch문 나가기
             case 7: // choice가 7이면
                 Nnuggets += amount; // 치킨너겟의 남은 수량에 amount 더하기
+                ShowRemain();
                 break; // switch문 나가기
             case 8: // choice가 8이면
                 Ncstick += amount; // 치즈스틱의 남은 수량에 amount 더하기
+                ShowRemain();
                 break; // switch문 나가기
             case 9: // choice가 9이면
                 Ncpotatoes += amount; // 치즈감자의 남은 수량에 amount 더하기
+                ShowRemain();
                 break; // switch문 나가기
             case 10: // choice가 10이면
                 Ncola += amount; // 콜라의 남은 수량에 amount 더하기
+                ShowRemain();
                 break; // switch문 나가기
             case 11: // choice가 11이면
                 Nzero_cola += amount; // 제로콜라의 남은 수량에 amount 더하기
+                ShowRemain();
                 break; // switch문 나가기
             case 12: // choice가 12이면
                 Nsoda += amount; // 사이다의 남은 수량에 amount 더하기
+            case 0://choice가 0이면
+                ShowRemain();
             }
         }
     }
