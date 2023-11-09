@@ -41,6 +41,7 @@ public: //공개
                 break; //스위치 문 나가기
             case 0: //0이 눌리면
                 cout << "종료합니다." << endl; // 문자 출력
+                exit(0); //콘솔 종료
                 return;
             default: //그 무엇도 아니라면
                 cout << "잘못된 선택입니다. 다시 선택하세요." << endl; //문자 출력
@@ -269,6 +270,7 @@ public:
     // 선택된 메뉴와 총 가격을 저장할 변수 추가
     vector<string> selectedMenu = {}; // 선택된 메뉴 목록을 저장하는 벡터
     int totalPrice = 0; // 총 가격
+    int price; //totalPrice를 저장할 변수
 
     void printSelectedMenu(int p) { // 선택된 메뉴 출력 함수
         cout << "============[선택한 메뉴]============" << endl;
@@ -284,8 +286,9 @@ public:
         switch (c) {
         case 1:
             selectedMenu.clear(); // 벡터의 모든 원소 삭제
+            price = totalPrice;
             totalPrice = 0; // 총 가격을 0으로 초기화
-            pr.price_menu(totalPrice);
+            pr.price_menu(price);
             break;
         case 2:
             hb.MenuOrder();
