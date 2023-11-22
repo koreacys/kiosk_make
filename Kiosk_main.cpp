@@ -1,6 +1,7 @@
 #include <iostream>
-#include <string>
+#include <windows.h>
 #include <vector>
+#include <string>
 using namespace std;
 
 // 남은 버거의 수 초기화
@@ -19,13 +20,70 @@ void drink_price(int n);// 음료 메뉴 가격을 계산하는 함수
 void set_drink(int n); //세트 음료
 void manager();//관리자 모드 함수
 
+//콘솔 창의 크기와 제목을 지정하는 함수
+void SetConsoleView() //콘솔 창에 대한 초기 설정
+{
+    system("mode con:cols=60 lines=50"); //콘솔 창의 각각 가로와 세로를 정한다
+    system("title remote contro. 객3반 컴퓨터소프트웨어학과 객지탐구 조"); //콘솔 창의 이름을 정한다
+}
+
+// 커서의 위치를 이동하는 함수
+void gotoxy(int x, int y) {
+    COORD pos = { x, y };
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}
+
+void outline() {
+    cout << "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■                                                      ■" << endl;
+    cout << "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■" << endl;
+}
 
 class HamburgerSystem { //클래스 HamburgerSystem
 public: //공개
     int choice, MenuChoice; //menu 변수
+
     void run() { //run 함수 작성
         while (1) { //무한반복 함수
             ShowMain(); //ShowMain()함수 부르기
+            gotoxy(15, 16);
             cout << "식사를 선택하세요: "; //문자 출력
             cin >> choice; //menu에 입력한 문자 넣기
 
@@ -41,7 +99,7 @@ public: //공개
                 break; //스위치 문 나가기
             case 0: //0이 눌리면
                 cout << "종료합니다." << endl; // 문자 출력
-                exit(0); //콘솔 종료
+                exit(0);
                 return;
             default: //그 무엇도 아니라면
                 cout << "잘못된 선택입니다. 다시 선택하세요." << endl; //문자 출력
@@ -50,15 +108,23 @@ public: //공개
         }
     }
     void MenuOrder() {
-        cout << "============[메뉴선택]============" << endl; // 문자 출력
+        system("cls");
+        outline();
+        gotoxy(23, 1);
+        cout << "[메뉴선택]" << endl; // 문자 출력
+        gotoxy(15, 11);
         cout << "1. 햄버거" << endl;
+        gotoxy(15, 12);
         cout << "2. 사이드 메뉴" << endl;
+        gotoxy(15, 13);
         cout << "3. 음료" << endl; // 0번을 만들어서 되돌리기 키 활성화 시키기 ★
+        gotoxy(15, 14);
         cout << "0. 처음으로" << endl; // 처음으로 돌아가기
+        gotoxy(15, 15);
         cout << "==================================\n"; // 문자 출력
 
         while (1) { //무한반복 함수
-
+            gotoxy(15, 16);
             cout << "메뉴를 선택해주세요: "; //문자 출력
             cin >> MenuChoice; //MenuChoice에 입력한 문자 넣기
 
@@ -73,7 +139,7 @@ public: //공개
                 drinkMenu(); //drinkMenu() 함수 실행
                 break; // 스위치 문 나가기 + 0 입력을 받아 
             case 0: // 0이 눌리면
-                ShowMain();
+                run();
                 break;
             default: //그 무엇도 아니라면
                 cout << "잘못된 선택입니다. 다시 선택하세요." << endl; //문자 출력
@@ -81,14 +147,34 @@ public: //공개
         }
     }
 
+    void HBM() {
+        hamburgerMenu();
+    }
+
+    void SM() {
+        sideMenu();
+    }
+
+    void DM() {
+        drinkMenu();
+    }
+
 private:
 
     void ShowMain() {  //ShowMenu() 함수 선언
-        cout << "============[메인화면]============" << endl; //문자 출력
+        system("cls");
+        outline();
+        gotoxy(23, 1);
+        cout << "[메인화면]" << endl; //문자 출력
+        gotoxy(15, 11);
         cout << "1.포장" << endl;
+        gotoxy(15, 12);
         cout << "2.매장식사" << endl;
+        gotoxy(15, 13);
         cout << "999. 관리자 모드" << endl;
+        gotoxy(15, 14);
         cout << "0. 종료" << endl;
+        gotoxy(15, 15);
         cout << "==============================" << endl; //문자 출력
     }
 
@@ -99,34 +185,72 @@ private:
         int setdrink;
         int setside;
         int hamburgerChoice;
-        cout << "============[메뉴선택]============" << endl;
+        system("cls");
+        outline();
+        gotoxy(23, 1);
+        cout << "[메뉴선택]" << endl;
+        gotoxy(15, 11);
         cout << "1) 불고기버거(3500)" << endl;
+        gotoxy(15, 12);
         cout << "2) 새우버거(3000)" << endl;
+        gotoxy(15, 13);
         cout << "3) 치킨버거(4000)" << endl;
+        gotoxy(15, 14);
         cout << "4) 치즈버거(3700)" << endl;
+        gotoxy(15, 15);
         cout << "5) 에그버거(3200)" << endl;
+        gotoxy(15, 16);
         cout << "==================================\n";
+        gotoxy(15, 17);
+        cout << "원하시는 메뉴를 입력해 주세요 : ";
         cin >> hamburgerChoice;
-        cout << "=========[세트/단품 선택]=====\n";
+        system("cls");
+        outline();
+        gotoxy(23, 1);
+        cout << "[세트/단품 선택]\n";
+        gotoxy(15, 11);
         cout << "    1.세트       2.단품\n";
+        gotoxy(15, 12);
         cout << "===============================\n";
+        gotoxy(15, 13);
+        cout << "세트/단품 선택 : ";
         cin >> setchoice;
         if (setchoice == 1) {
             hamset_price(hamburgerChoice);
-            cout << "=====[음료변경]======\n";
+            system("cls");
+            outline();
+            gotoxy(23, 1);
+            cout << "[음료변경]\n";
+            gotoxy(15, 12);
             cout << "1.콜라(+0)\n";
+            gotoxy(15, 13);
             cout << "2.사이다(+0)\n";
+            gotoxy(15, 14);
             cout << "3.오렌지주스(+500)\n";
+            gotoxy(15, 15);
             cout << "4.아메리카노(+300)\n";
+            gotoxy(15, 16);
             cout << "=====================\n";
+            gotoxy(15, 17);
+            cout << "음료 변경 : ";
             cin >> setdrink;
             set_drink(setdrink);
-            cout << "=====[사이드변경]=====\n";
+            system("cls");
+            outline();
+            gotoxy(23, 1);
+            cout << "[사이드변경]\n";
+            gotoxy(15, 11);
             cout << "1.감자튀김(+0)\n";
+            gotoxy(15, 12);
             cout << "2.치킨너넷(+500) \n";
+            gotoxy(15, 13);
             cout << "3.치즈스틱(+500)\n";
+            gotoxy(15, 14);
             cout << "4.치즈감자(+700)\n";
+            gotoxy(15, 15);
             cout << "=======================\n";
+            gotoxy(15, 16);
+            cout << "사이드 변경 : ";
             cin >> setside;
             set_side(setside);
         }
@@ -138,25 +262,46 @@ private:
 
     void sideMenu() {
         int sideMenu;
-        cout << "============[메뉴선택]============" << endl;
+        system("cls");
+        outline();
+        gotoxy(23, 1);
+        cout << "[메뉴선택]" << endl;
+        gotoxy(15, 11);
         cout << "1) 감자튀김(1200)" << endl;
+        gotoxy(15, 12);
         cout << "2) 치킨너겟(1500)" << endl;
+        gotoxy(15, 13);
         cout << "3) 치즈스틱(1000)" << endl;
+        gotoxy(15, 14);
         cout << "4) 치즈감자(2000)" << endl;
+        gotoxy(15, 15);
         cout << "==================================\n";
+        gotoxy(15, 16);
+        cout << "메뉴 선택 : ";
         cin >> sideMenu;
         side_price(sideMenu);
     }
 
     void drinkMenu() {
         int drinkMenu;
-        cout << "============[메뉴선택]============" << endl;
+        system("cls");
+        outline();
+        gotoxy(23, 1);
+        cout << "[메뉴선택]" << endl;
+        gotoxy(15, 11);
         cout << "1) 콜라(1500)" << endl;
+        gotoxy(15, 12);
         cout << "2) 제로콜라(1500)" << endl;
+        gotoxy(15, 13);
         cout << "3) 사이다(1500)" << endl;
+        gotoxy(15, 14);
         cout << "4) 오렌지주스(1200)" << endl;
+        gotoxy(15, 15);
         cout << "5) 물(1000)" << endl;
+        gotoxy(15, 16);
         cout << "==================================\n";
+        gotoxy(15, 16);
+        cout << "메뉴 선택 : ";
         cin >> drinkMenu;
         drink_price(drinkMenu);
     }
@@ -170,23 +315,44 @@ class change { //change 클래스 정의
 public: //접근 제어자 public
     void Calculator_change(int g) { //거스름돈을 계산하고 출력하는 멤버 함수 선언
         if (g >= 0) {
-            cout << "\n\n감사합니다! 맛있게 드세요. 잔돈은 다음과 같습니다.\n"; //감사합니다! 맛있게 드세요. 잔돈은 다음과 같습니다. 출력
-
+            system("cls");
+            outline();
+            gotoxy(15, 11);
+            cout << "감사합니다! 맛있게 드세요.";
+            gotoxy(15, 12);
+            cout << "잔돈은 다음과 같습니다."; //감사합니다! 맛있게 드세요. 잔돈은 다음과 같습니다. 출력
+            gotoxy(15, 13);
             cout << "오천원 " << g / 5000 << "장" << endl; //오천원 개수 출력
             g %= 5000;
+            gotoxy(15, 14);
             cout << "천원 " << g / 1000 << "장" << endl; //천원 개수 출력
             g %= 1000;
+            gotoxy(15, 15);
             cout << "오백원 " << g / 500 << "개" << endl; //오백원 개수 출력
             g %= 500;
+            gotoxy(15, 16);
             cout << "백원 " << g / 100 << "개" << endl; //백원 개수 출력
             cout << "\n\n"; //줄 바꿈
+            for (int i = 10; i > 0; i--) //10초 카운트다운 반복문
+            {
+                gotoxy(15, 17);
+                cout << i << "초 뒤 처음 화면으로 돌아갑니다."; //남은 시간 출력
+                Sleep(1000); //1초 딜레이
+            }
             hb.run(); //클래스 CafeOrderSystem에 있는 run()함수 부름
 
         }
         else {
             g = -g; //g에 -g를 넣어 음수였던 g를 양수로 바꿈
+            gotoxy(15, 10);
             cout << g << "원이 부족합니다.\n"; //(부족한 잔액의 액수)원이 부족합니다. 출력
-
+            for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+            {
+                gotoxy(15, 17);
+                cout << i << "초 뒤 처음 화면으로 돌아갑니다."; //남은 시간 출력
+                Sleep(1000); //1초 딜레이
+            }
+            hb.run(); //클래스 CafeOrderSystem에 있는 run()함수 부름
         }
     }
 };
@@ -206,17 +372,40 @@ public:
 
 price2 p2; //클래스 price2를 p2이름으로 정의
 
+void ment() {
+    gotoxy(15, 13);
+    cout << "결제가 완료 되었습니다.          \n";
+    gotoxy(15, 15);
+    cout << "\n\n"; //줄 바꿈
+    for (int i = 10; i > 0; i--) //10초 카운트다운 반복문
+    {
+        gotoxy(15, 16);
+        cout << i << "초 뒤 처음 화면으로 돌아갑니다."; //남은 시간 출력
+        Sleep(1000); //1초 딜레이
+    }
+    hb.run(); //클래스 CafeOrderSystem에 있는 run()함수 부름
+}
+
 class Price { //계산 클래스
 public:
     void price_menu(int p) { //price_menu 함수 생성
         int payway, cash; // 결제 방법을 선택하여 저장할 정수방 pzayway와 현금 결제시 금액을 저장할 cash 생성
 
-        cout << "============[결제선택]============" << endl;
+        system("cls");
+        outline();
+        gotoxy(23, 1);
+        cout << "[결제선택]" << endl;
+        gotoxy(15, 11);
         cout << "1. 현금" << endl;
+        gotoxy(15, 12);
         cout << "2. 카드" << endl;
+        gotoxy(15, 13);
         cout << "3. 삼성페이/애플페이" << endl;
+        gotoxy(15, 14);
         cout << "0. 결제 취소" << endl;
+        gotoxy(15, 15);
         cout << "==================================\n";
+        gotoxy(15, 16);
         cout << "결제방법을 선택해주세요: ";
         cin >> payway; //결제 방법을 payway에 저장
 
@@ -224,8 +413,13 @@ public:
         {
             if (payway == 1) //현금 결제시
             {
+                system("cls");
+                outline();
+                gotoxy(15, 11);
                 cout << "현금 결제를 선택하셨습니다.\n";
+                gotoxy(15, 12);
                 cout << "금액은 " << p << " 원 입니다.\n"; //p에 주문한 음식의 금액을 삽입
+                gotoxy(15, 13);
                 cout << "금액을 투입해주세요.";
                 cin >> cash; //금액을 cash에 삽입
                 p2.my_mony(cash); //p2클래스의 my_mony함수에 cash를 삽입
@@ -234,27 +428,37 @@ public:
             }
             else if (payway == 2) //카드 결제시
             {
+                system("cls");
+                outline();
+                gotoxy(15, 11);
                 cout << "카드 결제를 선택하셨습니다.\n";
+                gotoxy(15, 12);
                 cout << "금액은 " << p << " 원 입니다.\n"; //p에 주문한 음식의 금액을 삽입
+                gotoxy(15, 13);
                 cout << "카드를 투입해주세요.\n";
-                cout << "결제가 완료 되었습니다. \n";
-                cout << "\n\n"; //줄 바꿈
-                hb.run(); //클래스 CafeOrderSystem에 있는 run()함수 부름
+                Sleep(5000); //5초 딜레이
+                ment(); //ment출력
                 break;
             }
             else if (payway == 3) //페이 결제시
             {
+                system("cls");
+                outline();
+                gotoxy(15, 11);
                 cout << "삼성페이/애플페이를 선택하셨습니다.\n";
+                gotoxy(15, 12);
                 cout << "금액은 " << p << " 원 입니다.\n"; //p에 주문한 음식의 금액을 삽입
+                gotoxy(15, 13);
                 cout << "핸드폰을 리더기에 대주세요.\n";
-                cout << "결제가 완료 되었습니다. \n";
-                cout << "\n\n"; //줄 바꿈
-                hb.run(); //클래스 CafeOrderSystem에 있는 run()함수 부름
+                Sleep(5000); //5초 딜레이
+                ment(); //ment출력
                 break;
             }
             else if (payway == 0) //종료 결제시
             {
+                gotoxy(15, 10);
                 cout << "결제를 취소하셨습니다.\n";
+                Sleep(5000); //5초 딜레이
                 hb.run(); //첫 시작 화면 부르기
                 break;
             }
@@ -273,13 +477,21 @@ public:
     int price; //totalPrice를 저장할 변수
 
     void printSelectedMenu(int p) { // 선택된 메뉴 출력 함수
-        cout << "============[선택한 메뉴]============" << endl;
+        system("cls");
+        outline();
+        gotoxy(23, 1);
+        cout << "[선택한 메뉴]" << endl;
         totalPrice += p;
-        for (const string& menu : selectedMenu) {
-            cout << menu << endl;
+        gotoxy(15, 13);
+        for (int i = 0; i < selectedMenu.size(); i++) { // 벡터의 크기만큼 반복
+            gotoxy(15, 13 - i); // y좌표를 i만큼 감소시킴
+            cout << selectedMenu[i] << endl; // 벡터의 i번째 원소 출력
         }
+        gotoxy(15, 14);
         cout << "총 가격: " << totalPrice << "원" << endl;
+        gotoxy(15, 15);
         cout << "=====================================" << endl;
+        gotoxy(15, 16);
         cout << "1. 결제    2. 추가하기   : ";
         cin >> c;
 
@@ -305,6 +517,7 @@ void hamburger_price(int n) //hamburger_price함수 작성
 
     if (n == 0) //if문 n = 0 일때
     {
+        gotoxy(15, 10);
         cout << "종료" << endl; //종료 출력
         hb.run(); //첫 시작 화면 부르기
     }
@@ -321,7 +534,15 @@ void hamburger_price(int n) //hamburger_price함수 작성
                 sb.printSelectedMenu(bulgogi); //불고기버거의 값을 price_menu에 저장
             }
             else { //불고기 버거가 품절이면
+                gotoxy(15, 13);
                 cout << "불고기버거는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 2: //2가 눌렸을 때
@@ -332,7 +553,15 @@ void hamburger_price(int n) //hamburger_price함수 작성
                 sb.printSelectedMenu(shrimp); //새우버거의 값을 price_menu에 저장
             }
             else { //새우 버거가 품절이면
+                gotoxy(15, 10);
                 cout << "새우버거는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 3: //3이 눌렸을 때
@@ -343,7 +572,15 @@ void hamburger_price(int n) //hamburger_price함수 작성
                 sb.printSelectedMenu(chicken); //치킨버거의 값을 price_menu에 저장
             }
             else { //치킨 버거가 품절이면
+                gotoxy(15, 10);
                 cout << "치킨버거는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 4: //3이 눌렸을 때
@@ -354,7 +591,15 @@ void hamburger_price(int n) //hamburger_price함수 작성
                 sb.printSelectedMenu(cheese); //치즈버거의 값을 price_menu에 저장
             }
             else { //치즈 버거가 품절이면
+                gotoxy(15, 10);
                 cout << "치즈버거는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 5: //3이 눌렸을 때
@@ -365,10 +610,19 @@ void hamburger_price(int n) //hamburger_price함수 작성
                 sb.printSelectedMenu(egg); //에그버거의 값을 price_menu에 저장
             }
             else { //에그 버거가 품절이면
+                gotoxy(15, 10);
                 cout << "에그버거는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         default: //위의 숫자를 입력한게 아니라면
+            gotoxy(15, 10);
             cout << "다시 입력하세요" << endl; // 다시 입력하세요 출력
         }
 
@@ -386,6 +640,7 @@ void hamset_price(int n) // hamset_price함수 작성
 
     if (n == 0) //주문 종류n이 0이면 종료
     {
+        gotoxy(15, 10);
         cout << "종료" << endl; //종료 출력
         hb.run(); //첫 시작 화면 부르기
     }
@@ -403,7 +658,15 @@ void hamset_price(int n) // hamset_price함수 작성
                 sb.selectedMenu.push_back("불고기버거(3500)");
             }
             else { //불고기 버거가 품절이면
+                gotoxy(15, 10);
                 cout << "불고기버거는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 2: //2가 눌렸을 때
@@ -414,7 +677,15 @@ void hamset_price(int n) // hamset_price함수 작성
                 sb.selectedMenu.push_back("새우버거(3000)");
             }
             else { //새우 버거가 품절이면
+                gotoxy(15, 10);
                 cout << "새우버거는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 3: //3이 눌렸을 때
@@ -425,7 +696,15 @@ void hamset_price(int n) // hamset_price함수 작성
                 sb.selectedMenu.push_back("치킨버거(4000)");
             }
             else { //치킨 버거가 품절이면
+                gotoxy(15, 10);
                 cout << "치킨버거는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 4: //3이 눌렸을 때
@@ -436,7 +715,15 @@ void hamset_price(int n) // hamset_price함수 작성
                 sb.selectedMenu.push_back("치즈버거(3700)");
             }
             else { //치즈 버거가 품절이면
+                gotoxy(15, 10);
                 cout << "치즈버거는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 5: //3이 눌렸을 때
@@ -447,10 +734,19 @@ void hamset_price(int n) // hamset_price함수 작성
                 sb.selectedMenu.push_back("에그버거(3200)");
             }
             else { //에그 버거가 품절이면
+                gotoxy(15, 10);
                 cout << "에그버거는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         default: //위의 숫자를 입력한게 아니라면
+            gotoxy(15, 10);
             cout << "다시 입력하세요" << endl; // 다시 입력하세요 출력
         }
 
@@ -463,6 +759,7 @@ void set_drink(int n) { //set_drink함수 작성
 
     if (n == 0) //if문 n = 0 일때
     {
+        gotoxy(15, 10);
         cout << "종료" << endl; //종료 출력
         hb.run(); //첫 시작 화면 부르기
     }
@@ -479,7 +776,15 @@ void set_drink(int n) { //set_drink함수 작성
                 sb.selectedMenu.push_back("콜라(+0)");
             }
             else { //콜라거가 품절이면
+                gotoxy(15, 10);
                 cout << "콜라는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 2: //2가 눌렸을 때
@@ -490,7 +795,15 @@ void set_drink(int n) { //set_drink함수 작성
                 sb.selectedMenu.push_back("제로콜라(+0)");
             }
             else { //제로콜라가 품절이면
+                gotoxy(15, 10);
                 cout << "제로 콜라는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 3: //3이 눌렸을 때
@@ -501,7 +814,15 @@ void set_drink(int n) { //set_drink함수 작성
                 sb.selectedMenu.push_back("사이다(+0)");
             }
             else { //사이다가 품절이면
+                gotoxy(15, 10);
                 cout << "사이다는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 4: //4가 눌렸을 때
@@ -512,7 +833,15 @@ void set_drink(int n) { //set_drink함수 작성
                 sb.selectedMenu.push_back("오렌지주스(+500)");
             }
             else { //오렌지주스가 품절이면
+                gotoxy(15, 10);
                 cout << "오렌지주스는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 5: //5가 눌렸을 때
@@ -523,10 +852,19 @@ void set_drink(int n) { //set_drink함수 작성
                 sb.selectedMenu.push_back("물(+0)");
             }
             else { //물이 품절이면
+                gotoxy(15, 10);
                 cout << "물은 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         default: //위의 숫자를 입력한게 아니라면
+            gotoxy(15, 10);
             cout << "다시 입력하세요" << endl; // 다시 입력하세요 출력
         }
 
@@ -539,6 +877,7 @@ void set_side(int n) { //set_side함수 작성
 
     if (n == 0) //주문 종류n이 0이면 종료
     {
+        gotoxy(15, 10);
         cout << "종료" << endl; //종료 출력
         hb.run(); //첫 시작 화면 부르기
     }
@@ -556,7 +895,15 @@ void set_side(int n) { //set_side함수 작성
                 sb.printSelectedMenu(total);
             }
             else { //감자튀김이 품절이면
+                gotoxy(15, 10);
                 cout << "감자튀김은 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 2:
@@ -568,7 +915,15 @@ void set_side(int n) { //set_side함수 작성
                 sb.printSelectedMenu(total);
             }
             else { //치킨너겟이 품절이면
+                gotoxy(15, 10);
                 cout << "치킨너겟은 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 3:
@@ -580,7 +935,15 @@ void set_side(int n) { //set_side함수 작성
                 sb.printSelectedMenu(total);
             }
             else { //치즈스틱이 품절이면
+                gotoxy(15, 10);
                 cout << "치즈스틱은 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         case 4:
@@ -592,10 +955,19 @@ void set_side(int n) { //set_side함수 작성
                 sb.printSelectedMenu(total);
             }
             else { //치즈감자가 품절이면
+                gotoxy(15, 10);
                 cout << "치즈감자는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.HBM();
             }
             break; //switch문 나가기
         default:
+            gotoxy(15, 10);
             cout << "다시 입력하세요"; // 유효하지 않은 주문일 경우 다시 입력 요청
         }
 
@@ -611,6 +983,7 @@ void side_price(int n) //side_price함수 작성
 
     if (n == 0) //주문 종류n이 0이면 종료
     {
+        gotoxy(15, 10);
         cout << "종료" << endl; //종료 출력
         hb.run(); //첫 시작 화면 부르기
     }
@@ -627,7 +1000,15 @@ void side_price(int n) //side_price함수 작성
                 sb.printSelectedMenu(potato); //감자튀김 값을 price_menu에 저장
             }
             else { //감자튀김이 품절이면
+                gotoxy(15, 10);
                 cout << "감자튀김은 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.SM();
             }
             break; //switch문 나가기
         case 2:
@@ -638,7 +1019,15 @@ void side_price(int n) //side_price함수 작성
                 sb.printSelectedMenu(nuggets); //치킨너겟의 값을 price_menu에 저장
             }
             else { //치킨너겟이 품절이면
+                gotoxy(15, 10);
                 cout << "치킨너겟은 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.SM();
             }
             break; //switch문 나가기
         case 3:
@@ -649,7 +1038,15 @@ void side_price(int n) //side_price함수 작성
                 sb.printSelectedMenu(cstick); //치즈스틱의 값을 price_menu에 저장
             }
             else { //치즈스틱이 품절이면
+                gotoxy(15, 10);
                 cout << "치즈스틱은 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.SM();
             }
             break; //switch문 나가기
         case 4:
@@ -660,10 +1057,19 @@ void side_price(int n) //side_price함수 작성
                 sb.printSelectedMenu(cpotatoes); //치즈감자의 값을 price_menu에 저장
             }
             else { //치즈감자가 품절이면
+                gotoxy(15, 10);
                 cout << "치즈감자는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.SM();
             }
             break; //switch문 나가기
         default:
+            gotoxy(15, 10);
             cout << "다시 입력하세요"; // 유효하지 않은 주문일 경우 다시 입력 요청
         }
 
@@ -677,6 +1083,7 @@ void drink_price(int n) //drin_price함수 작성
 
     if (n == 0) //if문 n = 0 일때
     {
+        gotoxy(15, 10);
         cout << "종료" << endl; //종료 출력
         hb.run(); //첫 시작 화면 부르기
     }
@@ -693,7 +1100,15 @@ void drink_price(int n) //drin_price함수 작성
                 sb.printSelectedMenu(cola); //콜라의 값을 price_menu에 저장
             }
             else { //콜라가 품절이면
+                gotoxy(15, 10);
                 cout << "콜라는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.DM();
             }
             break; //switch문 나가기
         case 2: //2가 눌렸을 때
@@ -704,7 +1119,15 @@ void drink_price(int n) //drin_price함수 작성
                 sb.printSelectedMenu(zero_cola); //제로콜라의 값을 price_menu에 저장
             }
             else { //제로콜라가 품절이면
+                gotoxy(15, 10);
                 cout << "제로콜라는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.DM();
             }
             break; //switch문 나가기
         case 3: //3이 눌렸을 때
@@ -715,7 +1138,15 @@ void drink_price(int n) //drin_price함수 작성
                 sb.printSelectedMenu(soda); //사이다의 값을 price_menu에 저장
             }
             else { //사이다가 품절이면
+                gotoxy(15, 10);
                 cout << "사이다는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.DM();
             }
             break; //switch문 나가기
         case 4: //4가 눌렸을 때
@@ -726,7 +1157,15 @@ void drink_price(int n) //drin_price함수 작성
                 sb.printSelectedMenu(orange); //오렌지 주스의 값을 price_menu에 저장
             }
             else { //오렌지주스가 품절이면
+                gotoxy(15, 10);
                 cout << "오렌지주스는 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.DM();
             }
             break; //switch문 나가기
         case 5: //5가 눌렸을 때
@@ -737,10 +1176,19 @@ void drink_price(int n) //drin_price함수 작성
                 sb.printSelectedMenu(water); //물의 값을 price_menu에 저장
             }
             else { //물이 품절이면
+                gotoxy(15, 10);
                 cout << "물은 품절입니다." << endl; //품절 메시지 출력
+                for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
+                {
+                    gotoxy(15, 14);
+                    cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                    Sleep(1000); //1초 딜레이
+                }
+                hb.DM();
             }
             break; //switch문 나가기
         default: //위의 숫자를 입력한게 아니라면
+            gotoxy(15, 10);
             cout << "다시 입력하세요" << endl; // 다시 입력하세요 출력
         }
 
@@ -750,107 +1198,310 @@ void drink_price(int n) //drin_price함수 작성
 
 //----------------------[관리자 모드]----------------------
 void ShowMode() { // 관리자 모드 화면
-    cout << "============[관리자 모드]============" << endl;
+    system("cls");
+    outline();
+    gotoxy(23, 1);
+    cout << "[관리자 모드]" << endl;
+    gotoxy(15, 11);
     cout << "관리자모드" << endl;
+    gotoxy(15, 12);
     cout << "1. 재고 관리" << endl;
+    gotoxy(15, 13);
     cout << "2. 매출 관리" << endl;
+    gotoxy(15, 14);
     cout << "0. 돌아가기" << endl;
+    gotoxy(15, 15);
     cout << "==================================\n";
 }
 
 void ShowRemain() { // 재고 관리
     int choice; // 사용자가 선택한 메뉴 번호
     int amount; // 재고를 추가하거나 줄일 수량
+    system("cls");
+    outline();
 
-    cout << "============[재고 관리]============" << endl; // 문자 출력
+    gotoxy(23, 1);
+    cout << "[재고 관리]" << endl; // 문자 출력
+    gotoxy(15, 11);
     cout << "각 메뉴의 남은 수량은 다음과 같습니다." << endl; // 문자 출력
+    gotoxy(15, 12);
     cout << "01) 불고기버거: " << Nbulgogi << endl; // 불고기버거의 남은 수량 출력
+    gotoxy(15, 13);
     cout << "02) 새우버거: " << Nshrimp << endl; // 새우버거의 남은 수량 출력
+    gotoxy(15, 14);
     cout << "03) 치킨버거: " << Nchicken << endl; // 치킨버거의 남은 수량 출력
+    gotoxy(15, 15);
     cout << "04) 치즈버거: " << Ncheese << endl; // 치즈버거의 남은 수량 출력
+    gotoxy(15, 16);
     cout << "05) 에그버거: " << Negg << endl; // 에그버거의 남은 수량 출력
+    gotoxy(15, 17);
     cout << "06) 감자튀김: " << Npotato << endl; // 감자튀김의 남은 수량 출력
+    gotoxy(15, 18);
     cout << "07) 치킨너겟: " << Nnuggets << endl; // 치킨너겟의 남은 수량 출력
+    gotoxy(15, 19);
     cout << "08) 치즈스틱: " << Ncstick << endl; // 치즈스틱의 남은 수량 출력
+    gotoxy(15, 20);
     cout << "09) 치즈감자: " << Ncpotatoes << endl; // 치즈감자의 남은 수량 출력
+    gotoxy(15, 21);
     cout << "10) 콜라: " << Ncola << endl; // 콜라의 남은 수량 출력
+    gotoxy(15, 22);
     cout << "11) 제로콜라: " << Nzero_cola << endl; // 제로콜라의 남은 수량 출력
+    gotoxy(15, 23);
     cout << "12) 사이다: " << Nsoda << endl; // 사이다의 남은 수량 출력
+    gotoxy(15, 24);
     cout << "13) 오렌지주스: " << Norange << endl; // 오렌지주스의 남은 수량 출력
+    gotoxy(15, 25);
     cout << "14) 물: " << Nwater << endl; // 물의 남은 수량 출력
+    gotoxy(15, 26);
     cout << "00) 종료" << endl;
+    gotoxy(15, 27);
     cout << "==================================" << endl; // 문자 출력
 
     while (1) { // 무한반복
-        cout << "재고를 추가하거나 줄일 메뉴 번호를 입력하세요." << endl; // 문자 출력
+        gotoxy(15, 28);
+        cout << "재고를 추가하거나 줄일" << endl; // 문자 출력
+        gotoxy(15, 29);
+        cout << "메뉴의 번호를 입력하세요." << endl;
+        gotoxy(15, 30);
         cout << "===================================" << endl;
+        gotoxy(15, 31);
         cout << "번호 입력 : ";
         cin >> choice; // choice에 입력한 문자 넣기
         if (choice == 0) { // choice가 0이면
+            gotoxy(15, 11);
             cout << "===================================" << endl;
+            gotoxy(15, 12);
             cout << "관리자 모드를 종료합니다." << endl; // 문자 출력
+            gotoxy(15, 13);
             cout << "===================================" << endl;
             manager();
             break; // while문 나가기
         }
         else if (choice < 1 || choice > 14) { // choice가 1보다 작거나 14보다 크면
-            cout << "===================================" << endl;
+            /*gotoxy(15, 31);
+            cout << "===================================" << endl;*/
+            gotoxy(15, 30);
             cout << "잘못된 번호입니다. 다시 입력하세요." << endl; // 문자 출력
+            gotoxy(15, 31);
             cout << "===================================" << endl;
             continue; // while문의 처음으로 돌아가기
         }
         else { // choice가 1부터 14 사이면
+            gotoxy(15, 31);
+            cout << "재고를 추가하려면 양수," << endl; // 문자 출력
+            gotoxy(15, 32);
+            cout << "줄이려면 음수를 입력하세요." << endl;
+            gotoxy(15, 33);
+            cout << "(0을 누르면 종료 됩니다.)" << endl;
+            gotoxy(15, 34);
             cout << "===================================" << endl;
-            cout << "재고를 추가하려면 양수, 줄이려면 음수를 입력하세요.(0을 누르면 종료 됩니다.)" << endl; // 문자 출력
-            cout << "===================================" << endl;
+            gotoxy(15, 35);
             cout << "재고 입력 : ";
             cin >> amount; // amount에 입력한 문자 넣기
             switch (choice) { // switch문에 choice 넣기
             case 1: // choice가 1이면
                 Nbulgogi += amount; // 불고기버거의 남은 수량에 amount 더하기
-                ShowRemain();
+                if (Nbulgogi < 0) {
+                    gotoxy(15, 35);
+                    cout << "남은 개수가 음수 입니다." << endl;
+                    Nbulgogi -= amount; // 남은 수량에 amount 빼기 (원래대로 되돌리기)
+                    for (int i = 3; i > 0; i--) //3초 카운트다운 반복문
+                    {
+                        gotoxy(15, 36);
+                        cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                        Sleep(1000); //1초 딜레이
+                    }
+                    ShowRemain();
+                }
+                else
+                    ShowRemain();
                 break; // switch문 나가기
             case 2: // choice가 2이면
                 Nshrimp += amount; // 새우버거의 남은 수량에 amount 더하기
-                ShowRemain();
+                if (Nshrimp < 0) {
+                    gotoxy(15, 35);
+                    cout << "남은 개수가 음수 입니다." << endl;
+                    Nshrimp -= amount; // 남은 수량에 amount 빼기 (원래대로 되돌리기)
+                    for (int i = 3; i > 0; i--) //3초 카운트다운 반복문
+                    {
+                        gotoxy(15, 36);
+                        cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                        Sleep(1000); //1초 딜레이
+                    }
+                    ShowRemain();
+                }
+                else
+                    ShowRemain();
                 break; // switch문 나가기
             case 3: // choice가 3이면
                 Nchicken += amount; // 치킨버거의 남은 수량에 amount 더하기
-                ShowRemain();
+                if (Nchicken < 0) {
+                    gotoxy(15, 35);
+                    cout << "남은 개수가 음수 입니다." << endl;
+                    Nchicken -= amount; // 남은 수량에 amount 빼기 (원래대로 되돌리기)
+                    for (int i = 3; i > 0; i--) //3초 카운트다운 반복문
+                    {
+                        gotoxy(15, 36);
+                        cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                        Sleep(1000); //1초 딜레이
+                    }
+                    ShowRemain();
+                }
+                else
+                    ShowRemain();
                 break; // switch문 나가기
             case 4: // choice가 4이면
                 Ncheese += amount; // 치즈버거의 남은 수량에 amount 더하기
-                ShowRemain();
+                if (Ncheese < 0) {
+                    gotoxy(15, 35);
+                    cout << "남은 개수가 음수 입니다." << endl;
+                    Ncheese -= amount; // 남은 수량에 amount 빼기 (원래대로 되돌리기)
+                    for (int i = 3; i > 0; i--) //3초 카운트다운 반복문
+                    {
+                        gotoxy(15, 36);
+                        cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                        Sleep(1000); //1초 딜레이
+                    }
+                    ShowRemain();
+                }
+                else
+                    ShowRemain();
                 break; // switch문 나가기
             case 5: // choice가 5이면
                 Negg += amount; // 에그버거의 남은 수량에 amount 더하기
+                if (Negg < 0) {
+                    gotoxy(15, 35);
+                    cout << "남은 개수가 음수 입니다." << endl;
+                    Negg -= amount; // 남은 수량에 amount 빼기 (원래대로 되돌리기)
+                    for (int i = 3; i > 0; i--) //3초 카운트다운 반복문
+                    {
+                        gotoxy(15, 36);
+                        cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                        Sleep(1000); //1초 딜레이
+                    }
+                    ShowRemain();
+                }
+                else
+                    ShowRemain();
                 break; // switch문 나가기
             case 6: // choice가 6이면
                 Npotato += amount; // 감자튀김의 남은 수량에 amount 더하기
-                ShowRemain();
+                if (Npotato < 0) {
+                    gotoxy(15, 35);
+                    cout << "남은 개수가 음수 입니다." << endl;
+                    Npotato -= amount; // 남은 수량에 amount 빼기 (원래대로 되돌리기)
+                    for (int i = 3; i > 0; i--) //3초 카운트다운 반복문
+                    {
+                        gotoxy(15, 36);
+                        cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                        Sleep(1000); //1초 딜레이
+                    }
+                    ShowRemain();
+                }
+                else
+                    ShowRemain();
                 break; // switch문 나가기
             case 7: // choice가 7이면
                 Nnuggets += amount; // 치킨너겟의 남은 수량에 amount 더하기
-                ShowRemain();
+                if (Nnuggets < 0) {
+                    gotoxy(15, 35);
+                    cout << "남은 개수가 음수 입니다." << endl;
+                    Nnuggets -= amount; // 남은 수량에 amount 빼기 (원래대로 되돌리기)
+                    for (int i = 3; i > 0; i--) //3초 카운트다운 반복문
+                    {
+                        gotoxy(15, 36);
+                        cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                        Sleep(1000); //1초 딜레이
+                    }
+                    ShowRemain();
+                }
+                else
+                    ShowRemain();
                 break; // switch문 나가기
             case 8: // choice가 8이면
                 Ncstick += amount; // 치즈스틱의 남은 수량에 amount 더하기
-                ShowRemain();
+                if (Ncstick < 0) {
+                    gotoxy(15, 35);
+                    cout << "남은 개수가 음수 입니다." << endl;
+                    Ncstick -= amount; // 남은 수량에 amount 빼기 (원래대로 되돌리기)
+                    for (int i = 3; i > 0; i--) //3초 카운트다운 반복문
+                    {
+                        gotoxy(15, 36);
+                        cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                        Sleep(1000); //1초 딜레이
+                    }
+                    ShowRemain();
+                }
+                else
+                    ShowRemain();
                 break; // switch문 나가기
             case 9: // choice가 9이면
                 Ncpotatoes += amount; // 치즈감자의 남은 수량에 amount 더하기
-                ShowRemain();
+                if (Ncpotatoes < 0) {
+                    gotoxy(15, 35);
+                    cout << "남은 개수가 음수 입니다." << endl;
+                    Ncpotatoes -= amount; // 남은 수량에 amount 빼기 (원래대로 되돌리기)
+                    for (int i = 3; i > 0; i--) //3초 카운트다운 반복문
+                    {
+                        gotoxy(15, 36);
+                        cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                        Sleep(1000); //1초 딜레이
+                    }
+                    ShowRemain();
+                }
+                else
+                    ShowRemain();
                 break; // switch문 나가기
             case 10: // choice가 10이면
                 Ncola += amount; // 콜라의 남은 수량에 amount 더하기
-                ShowRemain();
+                if (Ncola < 0) {
+                    gotoxy(15, 35);
+                    cout << "남은 개수가 음수 입니다." << endl;
+                    Ncola -= amount; // 남은 수량에 amount 빼기 (원래대로 되돌리기)
+                    for (int i = 3; i > 0; i--) //3초 카운트다운 반복문
+                    {
+                        gotoxy(15, 36);
+                        cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                        Sleep(1000); //1초 딜레이
+                    }
+                    ShowRemain();
+                }
+                else
+                    ShowRemain();
                 break; // switch문 나가기
             case 11: // choice가 11이면
                 Nzero_cola += amount; // 제로콜라의 남은 수량에 amount 더하기
-                ShowRemain();
+                if (Nzero_cola < 0) {
+                    gotoxy(15, 35);
+                    cout << "남은 개수가 음수 입니다." << endl;
+                    Nzero_cola -= amount; // 남은 수량에 amount 빼기 (원래대로 되돌리기)
+                    for (int i = 3; i > 0; i--) //3초 카운트다운 반복문
+                    {
+                        gotoxy(15, 36);
+                        cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                        Sleep(1000); //1초 딜레이
+                    }
+                    ShowRemain();
+                }
+                else
+                    ShowRemain();
                 break; // switch문 나가기
             case 12: // choice가 12이면
                 Nsoda += amount; // 사이다의 남은 수량에 amount 더하기
+                if (Nsoda < 0) {
+                    gotoxy(15, 35);
+                    cout << "남은 개수가 음수 입니다." << endl;
+                    Nsoda -= amount; // 남은 수량에 amount 빼기 (원래대로 되돌리기)
+                    for (int i = 3; i > 0; i--) //3초 카운트다운 반복문
+                    {
+                        gotoxy(15, 36);
+                        cout << i << "초 뒤 이전 화면으로 돌아갑니다."; //남은 시간 출력
+                        Sleep(1000); //1초 딜레이
+                    }
+                    ShowRemain();
+                }
+                else
+                    ShowRemain();
             case 0://choice가 0이면
                 ShowRemain();
             }
@@ -859,46 +1510,105 @@ void ShowRemain() { // 재고 관리
 }
 
 void ShowManageMode() { // 매출 관리 화면
-    cout << "============[매출 관리]============" << endl;
+    system("cls");
+    outline();
+    gotoxy(23, 1);
+    cout << "[매출 관리]" << endl;
+    gotoxy(15, 11);
     cout << "1. 버거 매출" << endl;
+    gotoxy(15, 12);
     cout << "2. 사이드 메뉴 매출" << endl;
+    gotoxy(15, 13);
     cout << "3. 음료 매출" << endl;
+    gotoxy(15, 14);
     cout << "4. 매출 총합" << endl;
+    gotoxy(15, 15);
     cout << "0. 돌아가기" << endl;
+    gotoxy(15, 16);
     cout << "==================================\n";
 }
 void ShowBurgerManage() { // 버거 매출 화면 
-    cout << "============[버거 매출]============" << endl;
+    int i;
+    system("cls");
+    outline();
+    gotoxy(23, 1);
+    cout << "[버거 매출]" << endl;
+    gotoxy(15, 11);
     cout << "햄버거 매출: " << sum1 << endl; // sum1
+    gotoxy(15, 12);
     cout << "0. 돌아가기" << endl;
+    gotoxy(15, 13);
     cout << "==================================\n";
+    cout << "입력 : ";
+    cin >> i;
+    if (i == 0) {
+        ShowManageMode();
+    }
 }
 
 void ShowSideManage() { // 사이드 매출 화면
-    cout << "============[사이드 매출]============" << endl;
+    int i;
+    system("cls");
+    outline();
+    gotoxy(23, 1);
+    cout << "[사이드 매출]" << endl;
+    gotoxy(15, 11);
     cout << "사이드 매출: " << sum2 << endl; // sum2
+    gotoxy(15, 12);
     cout << "0. 돌아가기" << endl;
+    gotoxy(15, 13);
     cout << "==================================\n";
+    cout << "입력 : ";
+    cin >> i;
+    if (i == 0) {
+        ShowManageMode();
+    }
 }
 
 void ShowDrinkManage() { // 음료 매출 화면
-    cout << "============[음료 매출]============" << endl;
+    int i;
+    system("cls");
+    outline();
+    gotoxy(23, 1);
+    cout << "[음료 매출]" << endl;
+    gotoxy(15, 11);
     cout << "음료 매출: " << sum3 << endl; // sum3
+    gotoxy(15, 12);
     cout << "0. 돌아가기" << endl;
+    gotoxy(15, 13);
     cout << "==================================\n";
+    cout << "입력 : ";
+    cin >> i;
+    if (i == 0) {
+        ShowManageMode();
+    }
 }
 
 void ShowSumSale() { // 전 메뉴 총합 매출 화면
+    int i;
     int sum4 = sum1 + sum2 + sum3;
-    cout << "============[매출 총합]============" << endl;
+    system("cls");
+    outline();
+    gotoxy(23, 1);
+    cout << "[매출 총합]" << endl;
+    gotoxy(15, 11);
     cout << "매출 총합은: " << sum4 << "원 입니다."; // allsum
+    gotoxy(15, 12);
+    cout << "0. 돌아가기" << endl;
+    gotoxy(15, 13);
     cout << "==================================\n";
+    cout << "입력 : ";
+    cin >> i;
+    if (i == 0) {
+        ShowManageMode();
+    }
 }
 
 void manager() { //관리자 모드 함수
     int ManageMode, SaleMode;
     ShowMode(); //관리자 모드
     while (1) { //무한반복 함수
+        gotoxy(15, 16);
         cout << "관리자 모드입니다. 선택해주세요: ";
         cin >> ManageMode;
 
@@ -910,8 +1620,10 @@ void manager() { //관리자 모드 함수
             ShowManageMode(); //매출관리 화면
             break;
         case 0: // 0이 눌리면
+            hb.run();
             break;
         default: //그 무엇도 아니라면
+            gotoxy(15, 12);
             cout << "잘못된 선택입니다. 다시 선택하세요." << endl;
         }
 
@@ -922,6 +1634,7 @@ void manager() { //관리자 모드 함수
 
         while (1) { //무한반복 함수
 
+            gotoxy(15, 17);
             cout << "어떤 매출을 보시겠습니까?: ";
             cin >> SaleMode;
 
@@ -939,8 +1652,10 @@ void manager() { //관리자 모드 함수
                 ShowSumSale(); //총합 매출 화면
                 break;
             case 0:
+                manager();
                 break;
             default: //그 무엇도 아니라면
+                gotoxy(15, 18);
                 cout << "잘못된 선택입니다. 다시 선택하세요." << endl;
             }
 
@@ -954,6 +1669,8 @@ void manager() { //관리자 모드 함수
 
 int main(void)//main함수 시작
 {
-    hb.run(); //클래스 CafeOrderSystem에 있는 run()함수 부름
+    SetConsoleView();
+    outline();
+    hb.run();
     return 0;
 }
