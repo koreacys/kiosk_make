@@ -134,7 +134,6 @@
     <ClCompile Include="가격.cpp" />
     <ClCompile Include="결제.cpp" />
     <ClCompile Include="관리자_모드.cpp" />
-    <ClCompile Include="매니저.cpp" />
     <ClCompile Include="메뉴.cpp" />
     <ClCompile Include="조작.cpp" />
     <ClCompile Include="테두리.cpp" />
@@ -143,7 +142,6 @@
     <ClInclude Include="가격.h" />
     <ClInclude Include="결제.h" />
     <ClInclude Include="관리자_모드.h" />
-    <ClInclude Include="매니저.h" />
     <ClInclude Include="메뉴.h" />
     <ClInclude Include="조작.h" />
     <ClInclude Include="테두리.h" />

@@ -30,9 +30,6 @@
     <ClCompile Include="관리자_모드.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="매니저.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="메뉴.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -54,9 +51,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="관리자_모드.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="매니저.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="테두리.h">

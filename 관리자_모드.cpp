@@ -1,32 +1,85 @@
 #include <iostream>
 #include <windows.h>
+#include"관리자_모드.h"
 #include"테두리.h"
 #include"조작.h"
-#include"매니저.h"
+#include"메뉴.h"
 using namespace std;
 
+// 키보드 조작
+#define UP 0 
+#define DOWN 1
+#define LEFT 2
+#define RIGHT 3
+#define SUBMIT 4 // 선택
 
 extern int Nbulgogi, Nshrimp, Nchicken, Ncheese, Negg;
 extern int Npotato, Nnuggets, Ncstick, Ncpotatoes;
 extern int Ncola, Nzero_cola, Nsoda, Norange, Nwater;
 extern int sum1, sum2, sum3;
 
+int menucode;
+
 //----------------------[관리자 모드]----------------------
-void ShowMode() { // 관리자 모드 화면
+void manager() { //관리자 모드 함수
+    while (1) { //무한반복 함수
+        menucode = ShowMode(); // 관리자 모드 화면 출력
+        if (menucode == 0) {
+            ShowRemain(); // 재고 관리 화면 출력
+        }
+        else if (menucode == 1) {
+            ShowManage(); // 매출 관리 화면 출력
+        }
+        else if (menucode == 2) {
+            hb.run(); // 메인 화면으로 돌아가기
+            return;
+        }
+    }
+}
+
+int ShowMode() { // 관리자 모드 화면
+    int x = 14;
+    int y = 11;
     system("cls");
     outline();
     gotoxy(23, 1);
     cout << "[관리자 모드]" << endl;
-    gotoxy(15, 11);
-    cout << "관리자모드" << endl;
-    gotoxy(15, 12);
-    cout << "1. 재고 관리" << endl;
-    gotoxy(15, 13);
-    cout << "2. 매출 관리" << endl;
-    gotoxy(15, 14);
-    cout << "0. 돌아가기" << endl;
-    gotoxy(15, 15);
+    gotoxy(15, 10);
     cout << "==================================\n";
+    gotoxy(15, 11);
+    cout << "1. 재고 관리" << endl;
+    gotoxy(15, 12);
+    cout << "2. 매출 관리" << endl;
+    gotoxy(15, 13);
+    cout << "0. 돌아가기" << endl;
+    gotoxy(15, 14);
+    cout << "==================================\n";
+    while (1) {
+        int n = KeyControl();
+        switch (n) {
+        case UP: {
+            if (y > 11) {
+                gotoxy(x - 1, y);
+                cout << " ";
+                gotoxy(x - 1, --y);
+                cout << ">";
+            }
+            break;
+        }
+        case DOWN: {
+            if (y < 13) {
+                gotoxy(x - 1, y);
+                cout << " ";
+                gotoxy(x - 1, ++y);
+                cout << ">";
+            }
+            break;
+        }
+        case SUBMIT: {
+            return y - 11;
+        }
+        }
+    }
 }
 
 void ShowRemain() { // 재고 관리
@@ -359,11 +412,73 @@ void ShowRemain() { // 재고 관리
     }
 }
 
-void ShowManageMode() { // 매출 관리 화면
+void ShowManage() {
+    while (1) { //무한반복 함수
+        menucode = ShowManageMode(); // 매출 관리 화면 출력
+        if (menucode == 0) {
+            ShowBurger(); // 버거 매출 화면 출력
+        }
+        else if (menucode == 1) {
+            ShowSide(); // 사이드 메뉴 매출 화면 출력
+        }
+        else if (menucode == 2) {
+            ShowDrink(); // 음료 매출 화면 출력
+        }
+        else if (menucode == 3) {
+            ShowSum(); // 매출 총합 화면 출력
+        }
+        else if (menucode == 4) {
+            hb.run(); // 메인 화면으로 돌아가기
+            return;
+        }
+    }
+}
+
+void ShowBurger() {
+    while (1) {
+        menucode = ShowBurgerManage();
+        if (menucode == 0) {
+            ShowManage();
+        }
+    }
+}
+
+void ShowSide() {
+    while (1) {
+        menucode = ShowSideManage();
+        if (menucode == 0) {
+            ShowManage();
+        }
+    }
+}
+
+void ShowDrink() {
+    while (1) {
+        menucode = ShowDrinkManage();
+        if (menucode == 0) {
+            ShowManage();
+        }
+    }
+}
+
+void ShowSum() {
+    while (1) {
+        menucode = ShowSumSale();
+        if (menucode == 0) {
+            ShowManage();
+        }
+    }
+}
+
+int ShowManageMode() { // 매출 관리 화면
+    int x = 14;
+    int y = 11;
     system("cls");
     outline();
     gotoxy(23, 1);
     cout << "[매출 관리]" << endl;
+    gotoxy(15, 10);
+    cout << "==================================\n";
     gotoxy(15, 11);
     cout << "1. 버거 매출" << endl;
     gotoxy(15, 12);
@@ -376,84 +491,204 @@ void ShowManageMode() { // 매출 관리 화면
     cout << "0. 돌아가기" << endl;
     gotoxy(15, 16);
     cout << "==================================\n";
+    while (1) {
+        int n = KeyControl();
+        switch (n) {
+        case UP: {
+            if (y > 11) {
+                gotoxy(x - 1, y);
+                cout << " ";
+                gotoxy(x - 1, --y);
+                cout << ">";
+            }
+            break;
+        }
+        case DOWN: {
+            if (y < 15) {
+                gotoxy(x - 1, y);
+                cout << " ";
+                gotoxy(x - 1, ++y);
+                cout << ">";
+            }
+            break;
+        }
+        case SUBMIT: {
+            return y - 11;
+        }
+        }
+    }
 }
-void ShowBurgerManage() { // 버거 매출 화면 
-    int i;
+
+int ShowBurgerManage() { // 버거 매출 화면 
+    int x = 14;
+    int y = 11;
     system("cls");
     outline();
     gotoxy(23, 1);
     cout << "[버거 매출]" << endl;
+    gotoxy(15, 10);
+    cout << "==================================\n";
     gotoxy(15, 11);
     cout << "햄버거 매출: " << sum1 << endl; // sum1
     gotoxy(15, 12);
     cout << "0. 돌아가기" << endl;
     gotoxy(15, 13);
     cout << "==================================\n";
-    gotoxy(15, 14);
-    cout << "입력 : ";
-    cin >> i;
-    if (i == 0) {
-        ShowManageMode();
+    while (1) {
+        int n = KeyControl();
+        switch (n) {
+        case UP: {
+            if (y > 11) {
+                gotoxy(x - 1, y);
+                cout << " ";
+                gotoxy(x - 1, --y);
+                cout << ">";
+            }
+            break;
+        }
+        case DOWN: {
+            if (y < 12) {
+                gotoxy(x - 1, y);
+                cout << " ";
+                gotoxy(x - 1, ++y);
+                cout << ">";
+            }
+            break;
+        }
+        case SUBMIT: {
+            return y - 12;
+        }
+        }
     }
+
 }
 
-void ShowSideManage() { // 사이드 매출 화면
-    int i;
+int ShowSideManage() { // 사이드 매출 화면
+    int x = 14;
+    int y = 11;
     system("cls");
     outline();
     gotoxy(23, 1);
     cout << "[사이드 매출]" << endl;
+    gotoxy(15, 10);
+    cout << "==================================\n";
     gotoxy(15, 11);
     cout << "사이드 매출: " << sum2 << endl; // sum2
     gotoxy(15, 12);
     cout << "0. 돌아가기" << endl;
     gotoxy(15, 13);
     cout << "==================================\n";
-    gotoxy(15, 14);
-    cout << "입력 : ";
-    cin >> i;
-    if (i == 0) {
-        ShowManageMode();
+    while (1) {
+        int n = KeyControl();
+        switch (n) {
+        case UP: {
+            if (y > 11) {
+                gotoxy(x - 1, y);
+                cout << " ";
+                gotoxy(x - 1, --y);
+                cout << ">";
+            }
+            break;
+        }
+        case DOWN: {
+            if (y < 12) {
+                gotoxy(x - 1, y);
+                cout << " ";
+                gotoxy(x - 1, ++y);
+                cout << ">";
+            }
+            break;
+        }
+        case SUBMIT: {
+            return y - 12;
+        }
+        }
     }
 }
 
-void ShowDrinkManage() { // 음료 매출 화면
-    int i;
+int ShowDrinkManage() { // 음료 매출 화면
+    int x = 14;
+    int y = 11;
     system("cls");
     outline();
     gotoxy(23, 1);
     cout << "[음료 매출]" << endl;
+    gotoxy(15, 10);
+    cout << "==================================\n";
     gotoxy(15, 11);
     cout << "음료 매출: " << sum3 << endl; // sum3
     gotoxy(15, 12);
     cout << "0. 돌아가기" << endl;
     gotoxy(15, 13);
     cout << "==================================\n";
-    gotoxy(15, 14);
-    cout << "입력 : ";
-    cin >> i;
-    if (i == 0) {
-        ShowManageMode();
+    while (1) {
+        int n = KeyControl();
+        switch (n) {
+        case UP: {
+            if (y > 11) {
+                gotoxy(x - 1, y);
+                cout << " ";
+                gotoxy(x - 1, --y);
+                cout << ">";
+            }
+            break;
+        }
+        case DOWN: {
+            if (y < 12) {
+                gotoxy(x - 1, y);
+                cout << " ";
+                gotoxy(x - 1, ++y);
+                cout << ">";
+            }
+            break;
+        }
+        case SUBMIT: {
+            return y - 12;
+        }
+        }
     }
 }
 
-void ShowSumSale() { // 전 메뉴 총합 매출 화면
-    int i;
+int ShowSumSale() { // 전 메뉴 총합 매출 화면
+    int x = 14;
+    int y = 11;
     int sum4 = sum1 + sum2 + sum3;
     system("cls");
     outline();
     gotoxy(23, 1);
     cout << "[매출 총합]" << endl;
+    gotoxy(15, 10);
+    cout << "==================================\n";
     gotoxy(15, 11);
     cout << "매출 총합은: " << sum4 << "원 입니다."; // allsum
     gotoxy(15, 12);
     cout << "0. 돌아가기" << endl;
     gotoxy(15, 13);
     cout << "==================================\n";
-    gotoxy(15, 14);
-    cout << "입력 : ";
-    cin >> i;
-    if (i == 0) {
-        ShowManageMode();
+    while (1) {
+        int n = KeyControl();
+        switch (n) {
+        case UP: {
+            if (y > 11) {
+                gotoxy(x - 1, y);
+                cout << " ";
+                gotoxy(x - 1, --y);
+                cout << ">";
+            }
+            break;
+        }
+        case DOWN: {
+            if (y < 12) {
+                gotoxy(x - 1, y);
+                cout << " ";
+                gotoxy(x - 1, ++y);
+                cout << ">";
+            }
+            break;
+        }
+        case SUBMIT: {
+            return y - 12;
+        }
+        }
     }
 }

@@ -1,8 +1,15 @@
 #pragma once
-void ShowMode();
+int ShowMode();
 void ShowRemain();
-void ShowManageMode();
-void ShowBurgerManage();
-void ShowSideManage();
-void ShowDrinkManage();
-void ShowSumSale();
+int ShowManageMode();
+int ShowBurgerManage();
+int ShowSideManage();
+int ShowDrinkManage();
+int ShowSumSale();
+
+void manager();
+void ShowManage();
+void ShowBurger();
+void ShowSide();
+void ShowDrink();
+void ShowSum();
