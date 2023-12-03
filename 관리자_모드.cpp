@@ -406,7 +406,7 @@ void ShowRemain() { // 재고 관리
                     ShowRemain();
                 break; // switch문 나가기
             case 0://choice가 0이면
-                ShowRemain();
+                ShowMode();
             }
         }
     }

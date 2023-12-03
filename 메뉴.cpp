@@ -407,7 +407,7 @@ int HamburgerSystem::ChoiceSet() { // 세트, 단품 선택
     gotoxy(15, 10);
     cout << "===============================\n";
     gotoxy(15, 11);
-    cout << "    1.세트\n";
+    cout << "    1.세트 (2000원 추가)\n";
     gotoxy(15, 12);
     cout << "    2.단품\n";
     gotoxy(15, 13);

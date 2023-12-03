@@ -353,7 +353,7 @@ void drink_price(int n) { //drin_price함수 작성
 }
 
 //--------------------------[세트]---------------------------------
-int total = 0;//세트메뉴 가격 지정 함수
+int total = 2000;//세트메뉴 가격 지정 함수
 
 void hamset_price(int n) // hamset_price함수 작성
 {
@@ -368,7 +368,7 @@ void hamset_price(int n) // hamset_price함수 작성
 
     while (n != 0) //n = 0 이 아닐 때
     {
-        total = 0;
+        total = 2000;
         switch (n) //switch문
         {
         case 1: //1이 눌렸을 때
