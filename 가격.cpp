@@ -353,7 +353,7 @@ void drink_price(int n) { //drin_price함수 작성
 }
 
 //--------------------------[세트]---------------------------------
-int total = 2000;//세트메뉴 가격 지정 함수
+int total = 0;//세트메뉴 가격 지정 함수
 
 void hamset_price(int n) // hamset_price함수 작성
 {
@@ -375,7 +375,7 @@ void hamset_price(int n) // hamset_price함수 작성
             if (Nbulgogi > 0) { //불고기 버거가 남아있으면
                 Nbulgogi--; //불고기 버거의 수를 -1 감소
                 total += bulgogi; //불고기버거의 값을 price_menu에 저장
-                sum1 += bulgogi; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
+                sum1 += total; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("불고기버거(3500)");
             }
             else { //불고기 버거가 품절이면
@@ -394,7 +394,7 @@ void hamset_price(int n) // hamset_price함수 작성
             if (Nshrimp > 0) { //새우 버거가 남아있으면
                 Nshrimp--; //새우 버거의 수를 -1 감소
                 total += shrimp; //새우버거의 값을 price_menu에 저장
-                sum1 += shrimp; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
+                sum1 += total; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("새우버거(3000)");
             }
             else { //새우 버거가 품절이면
@@ -413,7 +413,7 @@ void hamset_price(int n) // hamset_price함수 작성
             if (Nchicken > 0) { //치킨 버거가 남아있으면
                 Nchicken--; //치킨 버거의 수를 -1 감소
                 total += chicken; //치킨버거의 값을 price_menu에 저장
-                sum1 += chicken; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
+                sum1 += total; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("치킨버거(4000)");
             }
             else { //치킨 버거가 품절이면
@@ -432,7 +432,7 @@ void hamset_price(int n) // hamset_price함수 작성
             if (Ncheese > 0) { //치즈 버거가 남아있으면
                 Ncheese--; //치즈 버거의 수를 -1 감소
                 total += cheese; //치즈버거의 값을 price_menu에 저장
-                sum1 += cheese; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
+                sum1 += total; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("치즈버거(3700)");
             }
             else { //치즈 버거가 품절이면
@@ -451,7 +451,7 @@ void hamset_price(int n) // hamset_price함수 작성
             if (Negg > 0) { //에그 버거가 남아있으면
                 Negg--; //에그 버거의 수를 -1 감소
                 total += egg; //에그버거의 값을 price_menu에 저장
-                sum1 += egg; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
+                sum1 += total; // 햄버거가 팔릴 때, 해당 가격을 sum1에 더함
                 sb.selectedMenu.push_back("에그버거(3200)");
             }
             else { //에그 버거가 품절이면

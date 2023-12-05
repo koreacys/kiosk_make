@@ -37,7 +37,7 @@ void change::Calculator_change(int g) { //거스름돈을 계산하고 출력하는 멤버 함수
         gotoxy(15, 16);
         cout << "백원 " << g / 100 << "개" << endl; //백원 개수 출력
         cout << "\n\n"; //줄 바꿈
-        for (int i = 10; i > 0; i--) //10초 카운트다운 반복문
+        for (int i = 5; i > 0; i--) //5초 카운트다운 반복문
         {
             gotoxy(15, 17);
             cout << i << "초 뒤 처음 화면으로 돌아갑니다."; //남은 시간 출력
