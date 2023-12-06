@@ -1,4 +1,4 @@
-#include <iostream>
+ #include <iostream>
 #include <windows.h>
 #include <vector>
 #include <string>
@@ -173,9 +173,9 @@ void Price::price_menu(int p) { //price_menu 함수 생성
                     ment(); //ment출력
                     break;
                 }
-                else if (payway == 0) //종료 결제시
+                else if (payway == 4) //종료 결제시
                 {
-                    gotoxy(15, 10);
+                    gotoxy(15, 9);
                     cout << "결제를 취소하셨습니다.\n";
                     Sleep(5000); //5초 딜레이
                     hb.run(); //첫 시작 화면 부르기
